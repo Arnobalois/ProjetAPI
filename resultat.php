@@ -3,8 +3,24 @@ if (!isset($_POST['champ-texte'])) {
   echo "Aucun formulaire n'a été soumis :(";
 }
 else {
-  //ajout de la requête en base de donnée pour notre webservice.
 
+  //récupération du json de la première api
+  $json = json_decode(file_get_contents("http://www.omdbapi.com/?apikey=896b8c10&t=".str_replace(' ', '%20', $_POST['champ-texte'])));
+
+  //requête sur la deuxième api
+  $apiKey = "64e0bff4d5msh1f396094c89ccfap11c036jsnb215af1b1c6f";
+  $json2 = json_decode(file_get_contents("https://imdb8.p.rapidapi.com/title/auto-complete?q=".
+                                              str_replace(' ', '%20', $_POST['champ-texte'])."&rapidapi-key=".$apiKey));
+
+  //Si le film existe dans la BD de la première API mais pas dans celle de la deuxième, on affiche un message d'erreur
+  if(!isset($json2->d)) {
+    echo '<script>alert("Ce film n\'est pas disponible dans la base de données que nous utilisons");</script>';
+    echo '<meta http-equiv="refresh" content="0;URL=accueil.html">';
+    exit();
+  }
+
+
+  //ajout de la requête en base de donnée pour notre webservice.
   //connexion
   $host = "mysql:host=lakartxela.iutbayonne.univ-pau.fr;dbname=abalois_bd";
   $user = "abalois_bd";
@@ -63,21 +79,25 @@ else {
   }
 
 
-
-  //récupération du json de la première api
-  $json = json_decode(file_get_contents("http://www.omdbapi.com/?apikey=896b8c10&t=".str_replace(' ', '%20', $_POST['champ-texte'])));
-
-  //requête sur la deuxième api
-  $apiKey = "64e0bff4d5msh1f396094c89ccfap11c036jsnb215af1b1c6f";
-  $json2 = json_decode(file_get_contents("https://imdb8.p.rapidapi.com/title/auto-complete?q=".str_replace(' ', '%20', $_POST['champ-texte'])."&rapidapi-key=".$apiKey));
   $idFilm = $json2->d[0]->id;
   $jsonActeurs = json_decode(file_get_contents("https://imdb8.p.rapidapi.com/title/get-top-cast?tconst=".$idFilm."&rapidapi-key=".$apiKey));
+
   $idActeur1 = ($jsonActeurs[0] != null) ? $jsonActeurs[0] : null;
   $idActeur2 = ($jsonActeurs[1] != null) ? $jsonActeurs[1] : null;
   $idActeur3 = ($jsonActeurs[2] != null) ? $jsonActeurs[2] : null;
-  $jsonActeur1 = ($idActeur1 != null) ? json_decode(file_get_contents("https://imdb8.p.rapidapi.com/actors/get-bio?nconst=".substr($idActeur1, 6, -1)."&rapidapi-key=".$apiKey)) : null;
-  $jsonActeur2 = ($idActeur2 != null) ? json_decode(file_get_contents("https://imdb8.p.rapidapi.com/actors/get-bio?nconst=".substr($idActeur2, 6, -1)."&rapidapi-key=".$apiKey)) : null;
-  $jsonActeur3 = ($idActeur3 != null) ? json_decode(file_get_contents("https://imdb8.p.rapidapi.com/actors/get-bio?nconst=".substr($idActeur3, 6, -1)."&rapidapi-key=".$apiKey)) : null;
+
+  $jsonActeur1 = ($idActeur1 != null) ? json_decode(file_get_contents(
+    "https://imdb8.p.rapidapi.com/actors/get-bio?nconst=".
+      substr($idActeur1, 6, -1)."&rapidapi-key=".$apiKey)) : null;
+
+  $jsonActeur2 = ($idActeur2 != null) ? json_decode(file_get_contents(
+    "https://imdb8.p.rapidapi.com/actors/get-bio?nconst=".
+      substr($idActeur2, 6, -1)."&rapidapi-key=".$apiKey)) : null;
+
+  $jsonActeur3 = ($idActeur3 != null) ? json_decode(file_get_contents(
+    "https://imdb8.p.rapidapi.com/actors/get-bio?nconst=".
+      substr($idActeur3, 6, -1)."&rapidapi-key=".$apiKey)) : null;
+
   ?>
   <html>
   <head>
@@ -139,15 +159,6 @@ else {
         </div>
       </div>
     </div>
-
-
-
-
-
-
-
-
-
   </body>
   </html>
   <?php
