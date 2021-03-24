@@ -4,20 +4,20 @@
 $dbh = new PDO('mysql:host=lakartxela.iutbayonne.univ-pau.fr;dbname=abalois_bd', 'abalois_bd','abalois_bd');
 
 
-if( !isset($_REQUEST["nom"]) && !isset($_REQUEST["code"]))
+if( !isset($_REQUEST["p"]) && !isset($_REQUEST["c"]))
 {
 
-echo ("Erreur pas de Pays choisi !!! ");
+$Films[] = "Erreur pas de Pays correspondant !";
 
 }
 else{
-	if(!isset($_REQUEST["nom"])) {
-		$codePays=$_REQUEST["code"];
-	}else if(!isset($_REQUEST["code"])) {
-		$Nom_Pays=$_REQUEST["nom"];
+	if(!isset($_REQUEST["p"])) {
+		$codePays=$_REQUEST["c"];
+	}else if(!isset($_REQUEST["c"])) {
+		$Nom_Pays=$_REQUEST["p"];
 	}else {
-		$Nom_Pays=$_REQUEST["nom"];
-		$codePays=$_REQUEST["code"];
+		$Nom_Pays=$_REQUEST["p"];
+		$codePays=$_REQUEST["c"];
 	}
 
 	//verification que le pays est dans la base de donnés
