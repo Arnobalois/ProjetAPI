@@ -1,0 +1,54 @@
+.titreFilm{
+  text-align: center;
+  font-size: 50;
+}
+
+.contenu{
+  width: 80%;
+  height: 80%;
+  border: 5px solid rgb(111,41,97);
+  border-radius: .5em;
+  padding: 10px;
+  justify-content: space-between;
+  align-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+
+.rating{
+  background-color: Black ;
+}
+
+.acteurs {
+  background-color: Black ;
+}
+
+.desc{
+  width: 80%;
+  height: 80%;
+  border: 5px solid rgb(111,41,97);
+  border-radius: .5em;
+  padding: 10px;
+  justify-content: space-between;
+  align-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+.retour{
+  display: inline-block;
+  text-decoration: none ;
+  color:#FFF ;
+  font-style: italic;
+  background-color:#BBBBBB;
+  width: 200px;
+
+  /*Arrondir le texte*/
+  -moz-border-radius:10px ;
+  -webkit-border-radius:10px ;
+  border-radius:10px ;
+
+}

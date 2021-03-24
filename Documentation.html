@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Documentation</title>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body style="background: rgb(150,180,255)">
+	<center><H1> Documentation </h1></center>
+	<p class="desc">Notre Api vous propose de rechercher un film dans la base de donnée ,
+		 puis nous afficherons grace a l'api IMDB les notes attribuer par des site de critique de film et dans un second temps nous affichons le casting principale du film en question.
+		Nous enregistrons en base de donnée le film que vous avez cherché et votre pays où vous vous situez.
+	</p>
+	<div class="desc">
+	<p>En deuxième partie notre API vous propose de chercher le nombre de vue soit par pays soit par film</p>
+
+		<ul>
+			<li>
+				<a href="Pays/index.php/?p=France"> GET Nombre de vue avec le Nom du Pays </a>
+				<p>exemple : on cherche les films recherché par des internautes en France sur l'API </p>
+				<p>Endpoint : http://iparla.iutbayonne.univ-pau.fr/~abalois/WebService/ProjetAPI-main/Pays/index.php/?p=France
+				<p>Parametre : p  (nom du pays)</p>
+			</li>
+			<li>
+				<a href="Pays/index.php/?c=BE"> GET Nombre de vue avec le Code du Pays </a>
+				<p>exemple : on cherche les films recherché par des internautes en Belgique sur l'API donc code = BE</p>
+				<p>Endpoint : http://iparla.iutbayonne.univ-pau.fr/~abalois/WebService/ProjetAPI-main/Pays/index.php/?c=BE
+				<p>Parametre : c  (code du pays)</p>
+			</li>
+			<li>
+				<a href="Film/index.php/?t=Titanic"> GET Nombre de vue avec le Titre du film </a>
+				<p>exemple : on cherche la liste des pays des internautes qui ont recherché le film Titanic</p>
+				<p>Endpoint : http://iparla.iutbayonne.univ-pau.fr/~abalois/WebService/ProjetAPI-main/Film/index.php/?t=Titanic
+				<p>Parametre : t (titre du film)</p>
+			</li>
+			<li>
+				<p>Si aucun parametre n'a était enregistré l'api renvera un Json contenant le code de l'erreur et une description de celle ci  </p>
+				<a href="Film/index.php/?"> Exemple </a>
+			</li>
+			<li>
+				<p>Si le parèmetre n'est pas en base de donnée l'api renvera un Json contenant le code de l'erreur et une description de celle ci  </p>
+				<a href="Pays/index.php/?c=Bel"> Exemple </a>
+			</li>
+		</ul>
+
+</div>
+<center><a class="retour" href="accueil.html">Retour</a></center>
+</body>
+</html>
