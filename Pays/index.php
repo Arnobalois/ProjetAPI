@@ -7,7 +7,8 @@ $dbh = new PDO('mysql:host=lakartxela.iutbayonne.univ-pau.fr;dbname=abalois_bd',
 if( !isset($_REQUEST["p"]) && !isset($_REQUEST["c"]))
 {
 
-$Films[] = "Erreur pas de Pays correspondant !";
+$Films=["Erreur" => "Erreur pas de Parametre !",
+"code" => "1"];
 
 }
 else{
@@ -27,7 +28,8 @@ else{
 	$resultat->execute();
 	$result=$resultat->fetchAll();
 	if(sizeof($result) == 0){
-	echo(" pas de resultat ou le pays n'existe pas dans la base de donnée");
+	$Films=["Erreur" => "pas de resultat ou le pays n'existe pas dans la base de donnee",
+	"code" => "2"];
 
 
 	}else {
@@ -50,12 +52,10 @@ else{
 		"Nom_Pays"=>$Film['Nom_Pays'],
 		"Films"=>$ListeFilm,
 	];
-
-	echo (json_encode($Films,JSON_PRETTY_PRINT));
-
 }
 
 }
+echo (json_encode($Films,JSON_PRETTY_PRINT));
 
 
 
